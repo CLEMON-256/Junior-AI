@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume - Yiga Junior</title>
+    <link rel="stylesheet" href="/_theme.css" />
+    <style>
+      :root{
+        --bg:#05070B;
+        --panel:#090D14;
+        --text:#F3F4F6;
+        --muted:#94A3B8;
+        --line:#1E293B;
+        --emerald:#10B981;
+        --emerald2:#34D399;
+        --shadow: rgba(16,185,129,0.12);
+      }
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        background:var(--bg);
+        color:var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow-x:hidden;
+      }
+      .wrap{max-width:920px;margin:0 auto;padding:28px 20px 60px}
+      header{
+        display:flex;align-items:center;justify-content:space-between;
+        border-bottom:1px solid rgba(30,41,59,0.8);
+        padding-bottom:16px;margin-bottom:22px;
+      }
+      .brand{display:flex;gap:12px;align-items:center}
+      .dot{width:10px;height:10px;background:var(--emerald);border-radius:999px;box-shadow:0 0 18px var(--emerald);}
+      .title{font-weight:800;letter-spacing:0.02em}
+      .pill{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size:12px;color:var(--muted);border:1px solid rgba(30,41,59,0.8);
+        padding:6px 10px;border-radius:999px;background:rgba(9,13,20,0.6)
+      }
+      .panel{
+        background:linear-gradient(180deg, rgba(9,13,20,0.85), rgba(9,13,20,0.6));
+        border:1px solid rgba(30,41,59,0.9);
+        border-radius:18px;
+        box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+        padding:22px;
+      }
+      h1{margin:0 0 10px;font-size:26px}
+      .meta{color:var(--muted);margin:0 0 18px;line-height:1.5}
+      .section{margin-top:18px;padding-top:14px;border-top:1px solid rgba(30,41,59,0.7)}
+      h2{margin:0 0 10px;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:var(--emerald2)}
+
+
+
+      ul{margin:0;padding-left:18px}
+      li{margin:7px 0;color:var(--text);line-height:1.6}
+      a{color:var(--emerald2);text-decoration:none}
+      a:hover{text-decoration:underline}
+      .card{
+        margin-top:14px;
+        padding:14px 16px;
+        border:1px solid rgba(16,185,129,0.18);
+        border-radius:14px;
+        background:rgba(16,185,129,0.06);
+        color:var(--text);
+      }
+      footer{margin-top:22px;color:rgba(148,163,184,0.9);font-size:12px;font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+      @media (max-width:520px){header{flex-direction:column;gap:10px;align-items:flex-start}}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <div class="dot"></div>
+          <div class="title">YIGA_JUNIOR.AI</div>
+        </div>
+        <div class="pill">RESUME_AGENT VIEW</div>
+      </header>
+
+      <div class="panel">
+        <h1>Yiga Junior — Resume (Draft)</h1>
+        <p class="meta">
+          Fullstack AI Engineer focused on end-to-end multi-agent infrastructure, production pipelines, and developer-ready systems.
+        </p>
+
+        <div class="section">
+          <h2>Contact</h2>
+          <ul>
+            <li>Email: <a href="mailto:jnyxmacon@gmail.com">jnyxmacon@gmail.com</a></li>
+            <li>Phone: <a href="tel:0793030322">0793030322</a></li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>Education</h2>
+          <ul>
+            <li>Bachelor of Science in Computer Science — KIU</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>Professional / Interests</h2>
+          <ul>
+            <li>Fullstack AI Engineer / AI infrastructure builder</li>
+            <li>Multi-agent systems: CrewAI, Microsoft AutoGen, LangGraph</li>
+            <li>Application logic + cloud-deployed pipelines</li>
+          </ul>
+          <div class="card">
+            <b>Focus:</b> turning complex workflows into reliable, testable, and scalable services.
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Skills</h2>
+          <ul>
+            <li>API design (FastAPI), async services, developer tooling</li>
+            <li>Vector search + RAG (Chroma)</li>
+            <li>LLM orchestration & routing (LangGraph)</li>
+            <li>UI building (React + Vite + Tailwind)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>Tech / Languages</h2>
+          <ul>
+            <li>Go</li>
+            <li>Python</li>
+            <li>TypeScript</li>
+            <li>JavaScript</li>
+            <li>Kotlin</li>
+            <li>C#</li>
+            <li>YAML</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>GitHub</h2>
+          <ul>
+            <li><a href="https://github.com/CLEMON-256" target="_blank" rel="noreferrer">https://github.com/CLEMON-256</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <footer>
+        LOCAL_NODE: GAYAZA_UGANDA • © 2026 YIGA JUNIOR. INFRASTRUCTURE LABS.
+      </footer>
+    </div>
+  </body>
+</html>
+

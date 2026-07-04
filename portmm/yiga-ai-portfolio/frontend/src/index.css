@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* Configuration custom themes are now written natively as standard CSS variables! */
+@theme {
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+body {
+  background-color: #05070B;
+  color: #F3F4F6;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #090D14;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 2px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #10B981;
+}
