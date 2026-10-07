@@ -25,10 +25,11 @@ export default function AboutSection() {
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Yiga Junior</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
                 Based in Gayaza, Uganda, I am a full-stack AI engineer specializing in
-                end-to-end multi-agent systems. I build with CrewAI, Microsoft AutoGen, and
-                LangGraph, and work with GPU kernels to support demanding AI workloads. I
-                integrate AI agents into Django and React applications as well as React Native
-                mobile apps, connecting intelligent workflows to complete user experiences.
+                end-to-end machine-learning models and multi-agent systems. I use PyTorch,
+                TensorFlow, CUDA, and computer vision in my machine-learning work, and build
+                multi-agent systems with CrewAI, Microsoft AutoGen, and LangGraph. I also work
+                with GPU kernels and integrate AI agents into Django and React applications
+                as well as React Native, kotlin mobile apps.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 With 74+ GitHub repositories and experience across React, TypeScript, Go with

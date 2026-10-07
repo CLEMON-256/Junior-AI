@@ -80,7 +80,7 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <img src={Logo} alt="Yiga Junior — AI Engineer" className="mb-4 h-16 w-auto max-w-full rounded bg-white p-2" />
-              <p className="text-gray-400 text-sm">Full-Stack AI Engineer building the future of multi-agent systems.</p>
+              <p className="text-gray-400 text-sm">Full-Stack AI Engineer building the future of AI models and multi-agent systems.</p>
             </div>
 
             <div>

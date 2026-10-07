@@ -39,6 +39,9 @@ Skills listed on his portfolio:
 - Docker (DevOps)
 - DevOps and MLOps
 - AI and parallel computing
+- PyTorch and TensorFlow for machine learning models
+- CUDA and GPU kernels for accelerated computing
+- Computer vision
 - Cybersecurity
 - Cloud computing
 - LangGraph, CrewAI, and Microsoft AutoGen (AI frameworks)
@@ -56,11 +59,13 @@ A: He studied at YMCA and has a bachelor's degree in Information Technology (IT)
 Q: What kind of engineer is Yiga?
 A: He describes himself as a Full-Stack AI Engineer focused on full-stack software and AI-agent systems.
 Q: What technologies and frameworks does Yiga work with?
-A: React, TypeScript, Go and Gin, Django, C#, Docker, LangGraph, CrewAI, and Microsoft AutoGen. His portfolio also lists DevOps, MLOps, AI and parallel computing, cybersecurity, and cloud computing.
+A: React, TypeScript, Go and Gin, Django, C#, Docker, PyTorch, TensorFlow, CUDA, computer vision, LangGraph, CrewAI, and Microsoft AutoGen. His portfolio also lists DevOps, MLOps, AI and parallel computing, cybersecurity, and cloud computing.
 Q: How does Yiga use AI agents in web and mobile applications?
 A: He integrates AI agents into Django and React full-stack applications and React Native mobile apps.
 Q: What does Yiga work on with GPU kernels and parallel computing?
-A: His portfolio lists GPU kernels, AI, and parallel computing among his areas of work. It does not specify particular kernel projects or performance results.
+A: He builds machine-learning models using PyTorch and TensorFlow, and his listed tools and areas include CUDA, GPU kernels, computer vision, AI, and parallel computing. The portfolio does not specify particular model or kernel projects or performance results.
+Q: Which machine-learning tools does Yiga use?
+A: His portfolio lists PyTorch, TensorFlow, CUDA, GPU kernels, and computer vision.
 Q: What are Yiga's interests in cloud, DevOps, MLOps, and cybersecurity?
 A: His portfolio lists cloud computing, DevOps, MLOps, and cybersecurity as skills and focus areas.
 Q: What roles could fit Yiga's skills?

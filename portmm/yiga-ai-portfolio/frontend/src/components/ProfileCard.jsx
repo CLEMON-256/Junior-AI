@@ -1,4 +1,3 @@
-import React from 'react';
 import { Volume2, VolumeX, Mail, Phone, ExternalLink } from 'lucide-react';
 
 export default function ProfileCard({ isPlaying, onToggleVoice }) {
@@ -26,7 +25,7 @@ export default function ProfileCard({ isPlaying, onToggleVoice }) {
       </div>
 
       <p className="text-slate-400 text-base md:text-lg leading-relaxed font-light max-w-xl">
-        Based out of Gayaza, I specialize in architecting end-to-end multi-agent infrastructures. 
+        Based out of Gayaza, I specialize in architecting end-to-end machine learning models and multi-agent infrastructures.
         I map complex workflows with <strong className="text-slate-200">CrewAI</strong>, 
         <strong className="text-slate-200">Microsoft AutoGen</strong>, and <strong className="text-slate-200">LangGraph</strong>, 
         handling everything from application logic to cloud-deployed pipelines.

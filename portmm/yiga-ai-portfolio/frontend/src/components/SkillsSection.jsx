@@ -1,6 +1,7 @@
 export default function SkillsSection() {
   const skills = [
     { name: 'React', category: 'Frontend' },
+    { name: 'React Native & Android Studio', category: 'Mobile App Development' },
     { name: 'TypeScript', category: 'Language' },
     { name: 'Go', category: 'Backend' },
     { name: 'Gin', category: 'Go Framework' },
@@ -9,7 +10,9 @@ export default function SkillsSection() {
     { name: 'Docker', category: 'DevOps' },
     { name: 'DevOps & MLOps', category: 'Engineering' },
     { name: 'AI & Parallel Computing', category: 'Computing' },
-    { name: 'Cybersecurity', category: 'Security' },
+    { name: 'PyTorch & TensorFlow', category: 'Machine Learning' },
+    { name: 'CUDA & GPU Kernels', category: 'Parallel Computing' },
+    { name: ' AI Cybersecurity', category: 'Security' },
     { name: 'Cloud Computing', category: 'Infrastructure' },
     { name: 'LangGraph, CrewAI & AutoGen', category: 'AI Frameworks' },
   ];

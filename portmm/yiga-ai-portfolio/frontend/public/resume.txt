@@ -116,6 +116,7 @@
             <li>API design (FastAPI), async services, developer tooling</li>
             <li>Vector search + RAG (Chroma)</li>
             <li>LLM orchestration & routing (LangGraph)</li>
+            <li>Machine learning: PyTorch, TensorFlow, CUDA, computer vision</li>
             <li>UI building (React + Vite + Tailwind)</li>
           </ul>
         </div>

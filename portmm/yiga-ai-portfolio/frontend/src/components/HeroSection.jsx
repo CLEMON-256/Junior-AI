@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
 export default function HeroSection() {
@@ -9,7 +8,7 @@ export default function HeroSection() {
           Full-Stack AI Engineer
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-          Building end-to-end Machine-Learning models and multi-agent infrastructures with CrewAI, LangGraph, and Microsoft AutoGen, CUDA from code to cloud
+          Building machine-learning models with PyTorch, TensorFlow, and CUDA, and multi-agent systems with CrewAI, LangGraph, and Microsoft AutoGen. Applying computer vision from model to cloud.
           Ready for immediate production impact.
         </p>
         <div className="flex justify-center gap-4">

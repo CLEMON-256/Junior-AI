@@ -14,7 +14,8 @@ resume_docs = [
     "Yiga Junior is a Full-Stack AI Engineer based in Gayaza, Uganda. He studied at YMCA and has a bachelor's degree in Information Technology (IT). His portfolio does not specify where the degree was awarded.",
     "Yiga Junior's portfolio lists React (Frontend), TypeScript (Language), Go (Backend) with the Gin framework, Django (Backend Framework), and C# (Backend).",
     "Yiga Junior's portfolio lists Docker (DevOps), DevOps and MLOps, AI and parallel computing, cybersecurity, and cloud computing.",
-    "Yiga Junior says these listed technologies and areas are skills he does well. He works with LangGraph, CrewAI, and Microsoft AutoGen AI frameworks. His portfolio describes integrating AI agents into Django and React full-stack applications and React Native mobile apps, GPU kernels, AI security, and automation.",
+    "Yiga Junior builds machine-learning models using PyTorch and TensorFlow. His listed machine-learning and computing tools and areas include CUDA, GPU kernels, computer vision, AI, and parallel computing. His portfolio does not specify particular model or kernel projects or performance results.",
+    "Yiga Junior says these listed technologies and areas are skills he does well. He works with LangGraph, CrewAI, and Microsoft AutoGen AI frameworks. His portfolio describes integrating AI agents into Django and React full-stack applications and React Native mobile apps, AI security, and automation.",
     "Yiga Junior has 74+ GitHub repositories. His GitHub profile is https://github.com/CLEMON-256. Contact: junioryiga91@gmail.com and +256 793 030 322."
 ]
 resume_store = Chroma(collection_name="resume_collection", embedding_function=embeddings, persist_directory=CHROMA_PATH)
@@ -22,6 +23,7 @@ resume_ids = [
     "yiga-profile-education-location",
     "yiga-profile-core-technologies",
     "yiga-profile-engineering-skills",
+    "yiga-profile-machine-learning-tools",
     "yiga-profile-ai-work",
     "yiga-profile-contact",
 ]
