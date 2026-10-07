@@ -3,7 +3,7 @@ import { Mic, MicOff, Send, Volume2, VolumeX } from 'lucide-react';
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState([
-    { text: "System Initialized. Ask me anything about Yiga's engineering background or source code repositories.", isBot: true }
+    { text: "System Initialized. Ask agent anything about Yiga's engineering background or source code repositories.", isBot: true }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -127,8 +127,12 @@ export default function ChatInterface() {
 
       setMessages(prev => [...prev, { text: replyText, isBot: true, agent: data.agent_used }]);
       if (voiceRepliesEnabled) speakReply(replyText);
-    } catch {
-      setMessages(prev => [...prev, { text: "Network Timeout: Make sure your FastAPI local port server is active.", isBot: true }]);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown network error";
+      setMessages(prev => [...prev, {
+        text: `Could not reach Yiga Junior Agent (${message}). Check your connection and try again.`,
+        isBot: true,
+      }]);
     } finally {
       setLoading(false);
     }
@@ -222,7 +226,7 @@ export default function ChatInterface() {
           type="text" 
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask me about my experience, skills, or projects..."
+          placeholder="Ask agent"
           className="flex-1 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
         />
         <button 
