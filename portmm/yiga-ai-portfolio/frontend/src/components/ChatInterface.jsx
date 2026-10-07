@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, Terminal, Cpu } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Mic, MicOff, Send, Volume2, VolumeX } from 'lucide-react';
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState([
@@ -7,10 +7,83 @@ export default function ChatInterface() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const scrollRef = useRef(null);
+  const [voiceRepliesEnabled, setVoiceRepliesEnabled] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceStatus, setVoiceStatus] = useState("");
+  const messagesRef = useRef(null);
+  const recognitionRef = useRef(null);
+  const speechRecognitionAvailable = typeof window !== 'undefined'
+    && Boolean(window['SpeechRecognition'] || window['webkitSpeechRecognition']);
+
+  const speakReply = (text) => {
+    if (!('speechSynthesis' in window)) {
+      setVoiceStatus("Spoken replies are not supported in this browser.");
+      return;
+    }
+
+    const spokenText = text
+      .replace(/```[\s\S]*?```/g, " Code example omitted. ")
+      .replace(/https?:\/\/\S+/g, " link ")
+      .replace(/[*_#`]/g, "");
+    const utterance = new SpeechSynthesisUtterance(spokenText);
+    utterance.lang = 'en-US';
+    utterance.onerror = () => setVoiceStatus("The browser could not play the spoken reply.");
+    utterance.onend = () => setVoiceStatus("");
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setVoiceStatus("Speaking reply...");
+  };
+
+  const startVoiceInput = () => {
+    const SpeechRecognition = window['SpeechRecognition'] || window['webkitSpeechRecognition'];
+    if (!SpeechRecognition) {
+      setVoiceStatus("Voice input is not supported in this browser. You can type your question instead.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.trim();
+      setInput(transcript);
+      setVoiceStatus("Voice question captured. Review it, then press send.");
+    };
+    recognition.onerror = (event) => {
+      const message = event.error === 'not-allowed'
+        ? "Microphone access was denied. Allow microphone access in your browser settings and try again."
+        : `Voice input failed (${event.error}). You can type your question instead.`;
+      setVoiceStatus(message);
+    };
+    recognition.onend = () => {
+      setIsListening(false);
+      recognitionRef.current = null;
+    };
+
+    try {
+      recognitionRef.current = recognition;
+      recognition.start();
+      setIsListening(true);
+      setVoiceStatus("Listening... Ask your question.");
+    } catch {
+      recognitionRef.current = null;
+      setIsListening(false);
+      setVoiceStatus("Could not start voice input. Check microphone access and try again.");
+    }
+  };
+
+  useEffect(() => () => {
+    recognitionRef.current?.stop();
+    window.speechSynthesis?.cancel();
+  }, []);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const messagesElement = messagesRef.current;
+    messagesElement?.scrollTo({
+      top: messagesElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }, [messages, loading]);
 
   const handleSend = async (e) => {
@@ -41,13 +114,20 @@ export default function ChatInterface() {
       });
       const data = await response.json();
 
-      // backend may return reply as string OR structured content; normalize to text
       const replyText = typeof data.reply === 'string'
         ? data.reply
-        : JSON.stringify(data.reply, null, 2);
+        : Array.isArray(data.reply)
+          ? data.reply
+              .filter(part => part?.type === 'text' && typeof part.text === 'string')
+              .map(part => part.text)
+              .join('\n')
+          : typeof data.reply?.content === 'string'
+            ? data.reply.content
+            : JSON.stringify(data.reply, null, 2);
 
       setMessages(prev => [...prev, { text: replyText, isBot: true, agent: data.agent_used }]);
-    } catch (err) {
+      if (voiceRepliesEnabled) speakReply(replyText);
+    } catch {
       setMessages(prev => [...prev, { text: "Network Timeout: Make sure your FastAPI local port server is active.", isBot: true }]);
     } finally {
       setLoading(false);
@@ -55,59 +135,102 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="bg-[#090D14] border border-slate-900 shadow-2xl rounded-2xl p-6 h-[480px] flex flex-col justify-between relative group/card hover:border-slate-800 transition-colors duration-300">
+    <div className="bg-white border border-gray-200 shadow-lg rounded-xl p-6 h-[500px] flex flex-col justify-between">
       
-      {/* Console Top Header Accent */}
-      <div className="flex justify-between items-center border-b border-slate-900 pb-4 mb-4">
+      {/* Chat Header */}
+      <div className="flex flex-wrap justify-between items-center gap-3 border-b border-gray-200 pb-4 mb-4">
         <div className="flex items-center gap-2">
-          <Terminal size={14} className="text-emerald-400 animate-pulse" />
-          <span className="text-xs font-mono tracking-widest text-slate-400 uppercase">LANGGRAPH_ORCHESTRATOR</span>
+          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          <span className="text-sm font-semibold text-gray-900">Yiga Junior Agent</span>
         </div>
-        <span className="text-[10px] font-mono text-slate-600 bg-slate-900 px-2 py-0.5 rounded border border-slate-800/40">v1.2.0</span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setVoiceRepliesEnabled(enabled => {
+                if (enabled) {
+                  window.speechSynthesis?.cancel();
+                  setVoiceStatus("");
+                }
+                return !enabled;
+              });
+            }}
+            aria-pressed={voiceRepliesEnabled}
+            className={`flex items-center gap-1 rounded-lg border px-2 py-1.5 text-xs transition ${
+              voiceRepliesEnabled
+                ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
+                : 'border-gray-300 text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            {voiceRepliesEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
+            Speak replies {voiceRepliesEnabled ? 'on' : 'off'}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (isListening) {
+                recognitionRef.current?.stop();
+                return;
+              }
+              startVoiceInput();
+            }}
+            disabled={!speechRecognitionAvailable || loading}
+            aria-label={isListening ? 'Stop voice input' : 'Ask by voice'}
+            title={speechRecognitionAvailable ? 'Ask by voice' : 'Voice input is not supported in this browser'}
+            className="flex items-center gap-1 rounded-lg border border-gray-300 px-2 py-1.5 text-xs text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isListening ? <MicOff size={15} /> : <Mic size={15} />}
+            {isListening ? 'Stop' : 'Talk'}
+          </button>
+        </div>
       </div>
+      {voiceStatus && (
+        <p role="status" aria-live="polite" className="mb-3 text-xs text-gray-600">
+          {voiceStatus}
+        </p>
+      )}
 
-      {/* Message Output Thread Container */}
-      <div className="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin">
+      {/* Messages */}
+      <div ref={messagesRef} className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.map((msg, i) => (
           <div key={i} className={`flex flex-col ${msg.isBot ? 'items-start' : 'items-end'}`}>
             {msg.agent && (
-              <span className="text-[9px] font-mono text-slate-500 mb-1 flex items-center gap-1 uppercase tracking-widest">
-                <Cpu size={10} className="text-cyan-500" /> ROUTED_TO: {msg.agent}
+              <span className="text-xs text-gray-500 mb-1 font-medium">
+                Agent: {msg.agent}
               </span>
             )}
-            <div className={`p-4 rounded-xl text-sm max-w-[85%] leading-relaxed ${
+            <div className={`p-4 rounded-lg text-sm max-w-[85%] leading-relaxed ${
               msg.isBot 
-                ? 'bg-slate-900/60 text-slate-300 border border-slate-800/80 font-light' 
-                : 'bg-emerald-500 text-slate-950 font-semibold shadow-[0_4px_12px_rgba(16,185,129,0.1)]'
+                ? 'bg-gray-100 text-gray-800 border border-gray-200'
+                : 'bg-emerald-600 text-white'
             }`}>
               {msg.text}
             </div>
           </div>
         ))}
         {loading && (
-          <div className="flex items-center gap-2 text-xs font-mono text-slate-500 animate-pulse">
-            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" />
-            Graph compilation routing executing...
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" />
+            <span>Thinking...</span>
           </div>
         )}
-        <div ref={scrollRef} />
       </div>
 
-      {/* Message Submission Target Field */}
-      <form onSubmit={handleSend} className="flex gap-2 mt-4 pt-4 border-t border-slate-900">
+      {/* Input Form */}
+      <form onSubmit={handleSend} className="flex gap-2 mt-4 pt-4 border-t border-gray-200">
         <input 
           type="text" 
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Query agent about portfolio, skills, context..."
-          className="flex-1 bg-slate-950 text-slate-200 border border-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500/30 transition-all font-light"
+          placeholder="Ask me about my experience, skills, or projects..."
+          className="flex-1 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
         />
         <button 
           type="submit" 
           disabled={loading}
-          className="bg-slate-900 hover:bg-slate-800 disabled:opacity-50 px-4 rounded-xl text-emerald-400 border border-slate-800 transition-all flex items-center justify-center"
+          className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 px-4 py-3 rounded-lg text-white transition-all flex items-center justify-center"
         >
-          <Send size={16} />
+          <Send size={18} />
         </button>
       </form>
     </div>

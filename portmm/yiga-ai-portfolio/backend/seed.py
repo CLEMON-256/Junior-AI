@@ -11,20 +11,32 @@ CHROMA_PATH = "./chroma_db"
 
 # 1. Populate Resume Collection
 resume_docs = [
-    "Yiga Junior is a Fullstack AI Engineer living in Gayaza. Email contact is jnyxmacon@gmail.com and phone number is 0793030322.",
-    "Yiga Junior is highly motivated, versatile, and built for immediate production impact without needing company training frameworks.",
-    "Yiga specializes in handling fullstack AI systems spanning architecture design, automated workflows, cloud deployment pipelines, and multi-agent systems."
+    "Yiga Junior is a Full-Stack AI Engineer based in Gayaza, Uganda. He studied at YMCA and has a bachelor's degree in Information Technology (IT). His portfolio does not specify where the degree was awarded.",
+    "Yiga Junior's portfolio lists React (Frontend), TypeScript (Language), Go (Backend) with the Gin framework, Django (Backend Framework), and C# (Backend).",
+    "Yiga Junior's portfolio lists Docker (DevOps), DevOps and MLOps, AI and parallel computing, cybersecurity, and cloud computing.",
+    "Yiga Junior says these listed technologies and areas are skills he does well. He works with LangGraph, CrewAI, and Microsoft AutoGen AI frameworks. His portfolio describes integrating AI agents into Django and React full-stack applications and React Native mobile apps, GPU kernels, AI security, and automation.",
+    "Yiga Junior has 74+ GitHub repositories. His GitHub profile is https://github.com/CLEMON-256. Contact: junioryiga91@gmail.com and +256 793 030 322."
 ]
 resume_store = Chroma(collection_name="resume_collection", embedding_function=embeddings, persist_directory=CHROMA_PATH)
-resume_store.add_texts(resume_docs)
+resume_ids = [
+    "yiga-profile-education-location",
+    "yiga-profile-core-technologies",
+    "yiga-profile-engineering-skills",
+    "yiga-profile-ai-work",
+    "yiga-profile-contact",
+]
+resume_store.delete(ids=resume_ids)
+resume_store.add_texts(resume_docs, ids=resume_ids)
 
 # 2. Populate GitHub Collection
 github_docs = [
-    "Yiga Junior's active GitHub user profile is located directly at ://github.com.",
-    "Yiga has deep production experience building advanced AI Agent architectures using CrewAI, Microsoft AutoGen, and LangGraph.",
+    "Yiga Junior's active GitHub user profile is https://github.com/CLEMON-256. He has 74+ repositories.",
+    "Yiga's portfolio lists CrewAI, Microsoft AutoGen, and LangGraph as AI frameworks he works with.",
     "Featured GitHub Repository: AI LiveKit CallCenter stack utilizing automated voice pipelines, dynamic tool binding, and cloud-deployed agent integrations."
 ]
 github_store = Chroma(collection_name="github_collection", embedding_function=embeddings, persist_directory=CHROMA_PATH)
-github_store.add_texts(github_docs)
+github_ids = ["yiga-github-profile", "yiga-github-ai-frameworks", "yiga-github-livekit-project"]
+github_store.delete(ids=github_ids)
+github_store.add_texts(github_docs, ids=github_ids)
 
 print("Chroma DB collections successfully initialized and seeded with Gemini Embedding 2!")

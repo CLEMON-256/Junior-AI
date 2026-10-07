@@ -5,6 +5,14 @@ export default function ProfileCard({ isPlaying, onToggleVoice }) {
   return (
     <div className="space-y-6 md:pr-8 animate-fade-in">
 
+      <div className="mb-6">
+        <img
+          src="/IMG-20260924-WA0001.jpg"
+          alt="Yiga Junior"
+          className="w-full max-w-sm h-auto rounded-xl shadow-lg border border-emerald-500/20"
+        />
+      </div>
+
       <div className="space-y-3">
         <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-400/5 border border-emerald-500/10 px-3 py-1 rounded-full">
           ● Ready for Immediate Production Impact
@@ -46,11 +54,12 @@ export default function ProfileCard({ isPlaying, onToggleVoice }) {
         <a href="tel:0793030322" className="flex items-center gap-2 hover:text-slate-200 transition-colors group">
           <Phone size={14} className="text-slate-600 group-hover:text-emerald-400" /> 0793030322
         </a>
-        <a href="mailto:jnyxmacon@gmail.com" className="flex items-center gap-2 hover:text-slate-200 transition-colors group">
-          <Mail size={14} className="text-slate-600 group-hover:text-emerald-400" /> jnyxmacon@gmail.com
+        <a href="mailto:junioryiga91@gmail.com" className="flex items-center gap-2 hover:text-slate-200 transition-colors group">
+          <Mail size={14} className="text-slate-600 group-hover:text-emerald-400" /> junioryiga91@gmail.com
         </a>
-        <a href="" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-200 transition-colors group col-span-2">
-          <ExternalLink size={14} className="text-slate-600 group-hover:text-emerald-400" /> ://        </a>
+        <a href="https://github.com/CLEMON-256" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-200 transition-colors group col-span-2">
+          <ExternalLink size={14} className="text-slate-600 group-hover:text-emerald-400" /> github.com/CLEMON-256
+        </a>
       </div>
     </div>
   );

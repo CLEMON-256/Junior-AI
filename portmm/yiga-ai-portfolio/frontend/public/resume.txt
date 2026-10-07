@@ -86,7 +86,7 @@
         <div class="section">
           <h2>Contact</h2>
           <ul>
-            <li>Email: <a href="mailto:jnyxmacon@gmail.com">jnyxmacon@gmail.com</a></li>
+            <li>Email: <a href="mailto:junioryiga91@gmail.com">junioryiga91@gmail.com</a></li>
             <li>Phone: <a href="tel:0793030322">0793030322</a></li>
           </ul>
         </div>
@@ -94,7 +94,7 @@
         <div class="section">
           <h2>Education</h2>
           <ul>
-            <li>Bachelor of Science in Computer Science — KIU</li>
+            <li>Studied at YMCA; bachelor's degree in Information Technology (IT)</li>
           </ul>
         </div>
 
@@ -148,4 +148,3 @@
     </div>
   </body>
 </html>
-
