@@ -8,7 +8,9 @@ export default function HeroSection() {
           Full-Stack AI Engineer
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-          Building machine-learning models with PyTorch, TensorFlow, and CUDA, and multi-agent systems with CrewAI, LangGraph, and Microsoft AutoGen. Applying computer vision from model to cloud.
+          Building machine-learning models with PyTorch and TensorFlow, applying computer
+          vision, and accelerating workloads with GPUs and CUDA. Developing multi-agent
+          systems with CrewAI, LangGraph, and Microsoft AutoGen from code to cloud.
           Ready for immediate production impact.
         </p>
         <div className="flex justify-center gap-4">
