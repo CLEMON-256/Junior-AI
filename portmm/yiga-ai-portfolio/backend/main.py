@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing_extensions import TypedDict
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
 from langgraph.graph import StateGraph, END
 from dotenv import load_dotenv
@@ -101,16 +102,13 @@ class AgentState(TypedDict):
     next_agent: str
     final_output: str
 
-def _get_llm(model_name: str):
-    return ChatGoogleGenerativeAI(model=model_name, temperature=0.1)
+def _get_llm():
+    api_key = os.getenv("GROQ_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("GROQ_API_KEY is not configured.")
 
-
-DEFAULT_MODEL_CANDIDATES = [
-    # User provided list (from model listing output)
-    "gemini-3.5-flash",
-    "gemini-2.5-flash",
-    "gemini-3-flash",
-]
+    model_name = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b").strip()
+    return ChatGroq(model=model_name, temperature=0.1, api_key=api_key)
 
 
 def _route_router_deterministic(user_text: str) -> str:
@@ -163,33 +161,10 @@ def supervisor_router(state: AgentState):
     }
 
 
-def _invoke_with_fallback(system_prompt: str, user_prompt: str) -> str:
-    # Primary model id is configurable via env var.
-    configured = os.getenv("GOOGLE_GEMINI_MODEL", "").strip()
-    # If the env var isn't set, try the supported candidates from the user's model list.
-    candidates = ([configured] if configured else []) + DEFAULT_MODEL_CANDIDATES
-    # If the configured candidate is a bad/unsupported model id, skip quickly rather than failing the whole request.
-    candidates = [m for m in candidates if m]
-
-    # De-dupe while preserving order.
-
-    seen = set()
-    candidates = [m for m in candidates if not (m in seen or seen.add(m))]
-
-    last_err = None
-    for model_name in candidates:
-        try:
-            llm = _get_llm(model_name)
-            response = llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)])
-            return response.content
-        except Exception as e:
-            last_err = e
-            # The error you saw is a 404 NOT_FOUND for an unavailable model.
-            if "NOT_FOUND" in str(e) or "404" in str(e):
-                continue
-            raise
-
-    raise RuntimeError(f"All Gemini model candidates failed. Last error: {last_err}")
+def _invoke_groq(system_prompt: str, user_prompt: str) -> str:
+    llm = _get_llm()
+    response = llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)])
+    return response.content
 
 
 def resume_agent(state: AgentState):
@@ -203,7 +178,7 @@ def resume_agent(state: AgentState):
         f"Prepared FAQ:\n{PORTFOLIO_FAQ}\n"
         f"Additional retrieved context:\n{context}"
     )
-    response_text = _invoke_with_fallback(system_prompt=system_prompt, user_prompt=query)
+    response_text = _invoke_groq(system_prompt=system_prompt, user_prompt=query)
     return {"final_output": response_text}
 
 
@@ -218,7 +193,7 @@ def github_agent(state: AgentState):
         f"Prepared FAQ:\n{PORTFOLIO_FAQ}\n"
         f"Additional retrieved context:\n{context}"
     )
-    response_text = _invoke_with_fallback(system_prompt=system_prompt, user_prompt=query)
+    response_text = _invoke_groq(system_prompt=system_prompt, user_prompt=query)
     return {"final_output": response_text}
 
 

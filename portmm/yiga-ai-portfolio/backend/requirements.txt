@@ -4,5 +4,6 @@ pydantic
 python-dotenv
 langchain-core
 langchain-google-genai
+langchain-groq
 langchain-chroma
 langgraph
