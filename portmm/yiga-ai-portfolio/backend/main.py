@@ -45,7 +45,7 @@ Skills listed on his portfolio:
 - Cybersecurity
 - Cloud computing
 - LangGraph, CrewAI, and Microsoft AutoGen (AI frameworks)
-His About section also describes integrating AI agents into Django and React full-stack applications and React Native mobile apps, working with GPU kernels, and providing AI security and automation.
+His About section also describes using GPUs and CUDA to accelerate machine-learning workloads, working with GPU kernels, integrating AI agents into Django and React full-stack applications and React Native mobile apps, and providing AI security and automation.
 He has 74+ GitHub repositories. His GitHub profile is https://github.com/CLEMON-256.
 His email is junioryiga91@gmail.com and his phone number is +256 793 030 322.
 """
@@ -63,7 +63,7 @@ A: React, TypeScript, Go and Gin, Django, C#, Docker, PyTorch, TensorFlow, CUDA,
 Q: How does Yiga use AI agents in web and mobile applications?
 A: He integrates AI agents into Django and React full-stack applications and React Native mobile apps.
 Q: What does Yiga work on with GPU kernels and parallel computing?
-A: He builds machine-learning models using PyTorch and TensorFlow, and his listed tools and areas include CUDA, GPU kernels, computer vision, AI, and parallel computing. The portfolio does not specify particular model or kernel projects or performance results.
+A: He builds machine-learning models using PyTorch and TensorFlow and uses GPUs and CUDA to accelerate machine-learning workloads. His listed areas include GPU kernels, computer vision, AI, and parallel computing. The portfolio does not specify particular model or kernel projects or performance results.
 Q: Which machine-learning tools does Yiga use?
 A: His portfolio lists PyTorch, TensorFlow, CUDA, GPU kernels, and computer vision.
 Q: What are Yiga's interests in cloud, DevOps, MLOps, and cybersecurity?

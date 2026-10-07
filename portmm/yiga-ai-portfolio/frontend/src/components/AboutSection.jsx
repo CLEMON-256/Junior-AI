@@ -27,9 +27,10 @@ export default function AboutSection() {
                 Based in Gayaza, Uganda, I am a full-stack AI engineer specializing in
                 end-to-end machine-learning models and multi-agent systems. I use PyTorch,
                 TensorFlow, CUDA, and computer vision in my machine-learning work, and build
-                multi-agent systems with CrewAI, Microsoft AutoGen, and LangGraph. I also work
-                with GPU kernels and integrate AI agents into Django and React applications
-                as well as React Native, kotlin mobile apps.
+                multi-agent systems with CrewAI, Microsoft AutoGen, and LangGraph. I use GPUs
+                and CUDA to accelerate machine-learning workloads and work with GPU kernels.
+                I integrate AI agents into Django and React applications
+                as well as React Native and Kotlin mobile apps.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 With 74+ GitHub repositories and experience across React, TypeScript, Go with
