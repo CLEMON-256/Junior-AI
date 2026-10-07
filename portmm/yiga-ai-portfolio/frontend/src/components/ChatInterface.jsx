@@ -112,7 +112,27 @@ export default function ChatInterface() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: queryText })
       });
-      const data = await response.json();
+      const responseBody = await response.text();
+      let data;
+
+      if (!response.ok) {
+        let errorDetail = responseBody.trim();
+        try {
+          const errorData = JSON.parse(responseBody);
+          errorDetail = errorData.detail || errorData.message || errorDetail;
+        } catch {
+          // Non-JSON error responses, such as Render's plain-text 500, are valid.
+        }
+        throw new Error(
+          `Agent API returned HTTP ${response.status}${errorDetail ? `: ${String(errorDetail).slice(0, 200)}` : ''}`
+        );
+      }
+
+      try {
+        data = JSON.parse(responseBody);
+      } catch {
+        throw new Error("Agent API returned an invalid response.");
+      }
 
       const replyText = typeof data.reply === 'string'
         ? data.reply
@@ -130,7 +150,7 @@ export default function ChatInterface() {
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown network error";
       setMessages(prev => [...prev, {
-        text: `Could not reach Yiga Junior Agent (${message}). Check your connection and try again.`,
+        text: `Yiga Junior Agent request failed: ${message}. Please try again later.`,
         isBot: true,
       }]);
     } finally {
